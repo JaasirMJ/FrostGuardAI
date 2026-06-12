@@ -2,22 +2,33 @@
 
 import { useEffect, useState } from "react";
 
+interface Shipment {
+  uid: string;
+  product: string;
+  origin: string;
+  destination: string;
+  status: string;
+}
+
 export default function HistoryPage() {
-  const [shipments, setShipments] = useState<any[]>([]);
+  const [shipments, setShipments] = useState<Shipment[]>([]);
 
   useEffect(() => {
-    const data = [];
+    const allShipments: Shipment[] = [];
 
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
 
       if (key?.startsWith("FG-")) {
-        const shipment = JSON.parse(localStorage.getItem(key)!);
-        data.push(shipment);
+        const data = localStorage.getItem(key);
+
+        if (data) {
+          allShipments.push(JSON.parse(data));
+        }
       }
     }
 
-    setShipments(data);
+    setShipments(allShipments);
   }, []);
 
   return (
