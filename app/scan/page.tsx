@@ -1,3 +1,5 @@
+<Navbar />
+import Navbar from "@/components/Navbar";
 "use client";
 
 import { useState } from "react";
